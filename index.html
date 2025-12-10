@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<!--
+    Project: 764 Threat Briefing
+    Date Created: 12/9/25
+    Purpose: This page was created as free use for any law enforcement, school district, and parent education content. Please share this document freely to anyone who might make good use of it.
+    -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Threat Briefing: 764 Group</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+	<style>
+	  @page {
+		size: auto;
+		margin: 0.5in;
+	  }
+
+		@media print {
+		  html, body {
+			height: auto !important;
+			overflow: visible !important;
+			background: #ffffff !important;
+		  }
+
+		  /* Kill the outer gray background + card look */
+		  body,
+		  #root,
+		  .print-wrapper {
+			background: #ffffff !important;
+			box-shadow: none !important;
+		  }
+
+		  /* Hide the big red header entirely when printing */
+		  .print-header {
+			display: none !important;
+		  }
+
+		  /* Hide sidebar navigation and any other navigation controls */
+		  aside {
+			display: none !important;
+		  }
+
+		  /* Let main content take full width */
+		  main {
+			width: 100% !important;
+			max-width: 100% !important;
+			padding: 0 !important;
+		  }
+
+		  /* Cards / sections shouldn't split across pages if we can help it */
+		  .break-inside-avoid {
+			break-inside: avoid-page;
+			page-break-inside: avoid;
+		  }
+
+		  /* Force specific blocks to start on a new page */
+		  .print-break-before {
+			break-before: page;
+			page-break-before: always;
+		  }
+
+		  /* Hide anything explicitly marked as print-hidden */
+		  .print\\:hidden {
+			display: none !important;
+		  }
+		}
+	</style>
+
+
+    <!-- React & ReactDOM (UMD builds) -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Babel for in-browser JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body {
+        background-color: #f3f4f6;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useState, useEffect } = React;
+
+      // Simple emoji-based "icons" to avoid external icon libs in this standalone file
+      const makeIcon = (symbol) =>
+        function Icon({ size = 20, className = '' }) {
+          return (
+            <span
+              className={className}
+              style={{
+                fontSize: size,
+                lineHeight: 1,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              {symbol}
+            </span>
+          );
+        };
+
+      const AlertTriangle = makeIcon('⚠️');
+      const Users = makeIcon('👥');
+      const Target = makeIcon('🎯');
+      const Shield = makeIcon('🛡️');
+      const FileText = makeIcon('📄');
+      const ChevronRight = makeIcon('›');
+      const Home = makeIcon('⌂');
+      const Briefing764 = () => {
+	        const Synopsis = () => (
+        <div className="mb-6 p-4 border border-gray-300 rounded bg-gray-50 text-sm">
+          <h2 className="text-lg font-bold mb-2">Synopsis &amp; Source Context</h2>
+
+          <p className="mb-2">
+            This briefing summarizes patterns of online grooming, extortion, and organized abuse
+            associated with networks commonly referred to as the &quot;764 group&quot; and related
+            nihilistic violent extremist communities. It is intended for law enforcement, school
+            leadership, child protection teams, and caregivers who need a clear operational overview
+            of how these offenders find, groom, and harm young people online.
+          </p>
+
+          <p className="mb-2">
+            Much of the narrative detail is drawn from public interviews and open-source reporting,
+            including a long-form discussion on <span className="font-semibold">The Shawn Ryan Show</span> with{' '}
+            <span className="font-semibold">Ryan Montgomery</span>, an ethical hacker and child-protection
+            advocate who works with law enforcement to identify online predators. Shawn Ryan is a former
+            U.S. Navy SEAL and intelligence professional who now hosts investigative interviews with
+            subject-matter experts.
+          </p>
+
+          <p className="mb-2">
+            The U.S. Department of Justice has described &quot;764&quot; as a nihilistic violent extremist
+            network. In an October 2025 press release, Attorney General Pamela Bondi emphasized that the
+            alleged conduct in one case shows the extreme cruelty and moral depravity associated with 764,
+            and stressed that these networks seek to terrorize communities by targeting the most vulnerable.
+          </p>
+
+          <p className="mb-3">
+            This document is not a substitute for official policy, charging documents, or case files.
+            It is a structured, plain-language summary intended to support awareness, prevention, and early
+            intervention, and should be used alongside your agency&apos;s own legal guidance and intelligence
+            products.
+          </p>
+
+          <div className="mt-3">
+            <h3 className="font-semibold mb-1">Key federal resources:</h3>
+            <ul className="list-disc list-inside space-y-1">
+              <li>
+                DOJ press release on a charged 764 member:&nbsp;
+                <a
+                  href="https://www.justice.gov/opa/pr/member-violent-extremist-network-764-charged-animal-crushing-sexual-exploitation-minor"
+                  className="text-blue-700 underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  justice.gov/opa/pr/member-violent-extremist-network-764...
+                </a>
+              </li>
+              <li>
+                FBI guidance for parents, caregivers, and teachers:&nbsp;
+                <a
+                  href="https://www.fbi.gov/how-we-can-help-you/parents-and-caregivers-protecting-your-kids"
+                  className="text-blue-700 underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  fbi.gov/how-we-can-help-you/parents-and-caregivers-protecting-your-kids
+                </a>
+              </li>
+              <li>
+                IC3 Public Service Announcement (March 2025):&nbsp;
+                <a
+                  href="https://www.ic3.gov/PSA/2025/PSA250306"
+                  className="text-blue-700 underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  ic3.gov/PSA/2025/PSA250306
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      );
+
+	  const [activeSection, setActiveSection] = useState('home');
+	  const [isPrinting, setIsPrinting] = useState(false);
+
+	  const handlePrint = () => {
+		// Switch to full-document print mode
+		setIsPrinting(true);
+
+		// Let React render, then trigger print
+		setTimeout(() => {
+		  window.print();
+
+		  // After a short delay, revert back to normal mode
+		  setTimeout(() => {
+			setIsPrinting(false);
+		  }, 500);
+		}, 0);
+	  };
+
+
+
+        const sections = {
+		          home: {
+            title: 'THREAT BRIEFING: 764 Group',
+            icon: Home,
+            content: (
+              <div className="space-y-6">
+                {/* Synopsis now appears at the top of the Threat Briefing section */}
+                <Synopsis />
+
+                <div className="bg-red-50 border-l-4 border-red-600 p-6">
+                  <div className="flex items-start">
+                    <AlertTriangle className="text-red-600 mr-3 flex-shrink-0" size={24} />
+                    <div>
+                      <h3 className="text-lg font-bold text-red-900">CRITICAL THREAT ALERT</h3>
+                      <p className="text-red-800 mt-2">
+                        The 764 Group represents one of the most dangerous online predatory networks
+                        targeting children. This briefing contains essential information for law
+                        enforcement, educators, and parents.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-gray-100 p-4 rounded">
+                    <h4 className="font-bold mb-2">Classification</h4>
+                    <p className="text-sm">Domestic terrorist-type threat (intel briefings)</p>
+                  </div>
+                  <div className="bg-gray-100 p-4 rounded">
+                    <h4 className="font-bold mb-2">Estimated Members</h4>
+                    <p className="text-sm">20,000–30,000+ worldwide</p>
+                  </div>
+                  <div className="bg-gray-100 p-4 rounded">
+                    <h4 className="font-bold mb-2">Primary Target Age</h4>
+                    <p className="text-sm">9–17 years old</p>
+                  </div>
+                  <div className="bg-gray-100 p-4 rounded">
+                    <h4 className="font-bold mb-2">Active Investigations</h4>
+                    <p className="text-sm">Hundreds of ongoing cases (reported)</p>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 p-4 rounded border border-blue-200 print-break-before">
+                  <h4 className="font-bold text-blue-900 mb-2">Purpose of This Briefing</h4>
+                  <p className="text-sm text-blue-800">
+                    This document provides intelligence on the 764 group&apos;s tactics, platforms,
+                    and warning signs to support prevention, identification, and intervention efforts.
+                  </p>
+                </div>
+              </div>
+            )
+          },
+          overview: {
+            title: 'Group Overview',
+            icon: Users,
+            content: (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold">What is the 764 Group?</h3>
+
+                <div className="bg-white border border-gray-200 p-4 rounded">
+                  <h4 className="font-semibold mb-2">Origin</h4>
+                  <p className="text-sm">
+                    Started by a 15-year-old in Texas, initially targeting victims through Minecraft.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-gray-200 p-4 rounded">
+                  <h4 className="font-semibold mb-2">Ideology</h4>
+                  <ul className="text-sm list-disc list-inside space-y-1">
+                    <li>Nihilist philosophy (&quot;nothing matters&quot;)</li>
+                    <li>Satanist cult elements</li>
+                    <li>Influenced by &quot;Order of Nine Angles&quot;</li>
+                    <li>Combines Satanism, neo-Nazism, and occultism</li>
+                    <li>Believes in &quot;culling&quot;: power through harming others</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white border border-gray-200 p-4 rounded">
+                  <h4 className="font-semibold mb-2">Structure</h4>
+                  <p className="text-sm mb-2">
+                    Multiple subgroups and offshoots exist beyond the main 764 name. Members often:
+                  </p>
+                  <ul className="text-sm list-disc list-inside space-y-1">
+                    <li>Create new groups to avoid detection</li>
+                    <li>Require proof of crimes for entry</li>
+                    <li>Share long manuals on exploitation tactics</li>
+                    <li>Operate across multiple encrypted platforms</li>
+                  </ul>
+                </div>
+
+                <div className="bg-yellow-50 border border-yellow-300 p-4 rounded">
+                  <h4 className="font-semibold text-yellow-900 mb-2">
+                    Connection to &quot;The Comm&quot;
+                  </h4>
+                  <p className="text-sm text-yellow-800">
+                    764 emerged from &quot;The Comm&quot; – a loose online community known for
+                    doxing, swatting, and harassment. While not all Comm members participate in 764
+                    activities, there is significant overlap.
+                  </p>
+                </div>
+              </div>
+            )
+          },
+          tactics: {
+            title: 'Tactics & Methods',
+            icon: Target,
+            content: (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold">How They Operate</h3>
+
+				<div className="bg-white border-l-4 border-gray-400 p-4">
+				  <h4 className="font-bold mb-3">Phase 0: Recruitment & Initiation</h4>
+				  <p className="text-sm mb-2">
+					Before victims are targeted, the 764 ecosystem actively recruits and initiates new participants.
+					Some seek the group out; others are pushed or blackmailed into involvement.
+				  </p>
+				  <ul className="text-sm list-disc list-inside space-y-1 ml-2 mb-2">
+					<li>
+					  Recruitment often happens in overlapping online communities: &quot;The Comm&quot;, gore/self-harm
+					  servers, extremist spaces, and toxic gaming or chat servers.
+					</li>
+					<li>
+					  Potential recruits are funneled in through invite links shared on Discord, gaming chats,
+					  and social platforms, or through existing friends already inside the group.
+					</li>
+					<li>
+					  Entry into more &quot;inner&quot; circles typically requires proof of commitment, such as
+					  participating in harassment, sharing disturbing content, or demonstrating a willingness
+					  to follow instructions without question.
+					</li>
+					<li>
+					  Some individuals become effectively unwilling members: victims who are extorted or threatened
+					  into helping moderate channels, scout new targets, or signal-boost the group to avoid further
+					  harm to themselves or their families.
+					</li>
+				  </ul>
+				  <p className="text-sm italic bg-gray-50 p-2 rounded">
+					Result: the group maintains a rotating pool of highly motivated offenders, desensitized teens,
+					and coerced participants who help sustain its operations and expand its reach.
+				  </p>
+				</div>
+
+                <div className="bg-white border-l-4 border-purple-500 p-4">
+                  <h4 className="font-bold mb-3">Phase 1: Luring</h4>
+                  <p className="text-sm mb-2">Target locations:</p>
+                  <ul className="text-sm list-disc list-inside space-y-1 ml-2">
+                    <li>
+                      <strong>Gaming platforms:</strong> Roblox, Minecraft
+                    </li>
+                    <li>
+                      <strong>Social media:</strong> Instagram, TikTok, Snapchat, Discord
+                    </li>
+                    <li>
+                      <strong>Mental health forums:</strong> Posing as support groups
+                    </li>
+                  </ul>
+                  <p className="text-sm mt-2 italic">
+                    They create fake support groups with names like &quot;Outpatient Wellness
+                    Center&quot; or &quot;Join cool friendly server to help you through hard
+                    times.&quot;
+                  </p>
+                </div>
+
+                <div className="bg-white border-l-4 border-blue-500 p-4">
+                  <h4 className="font-bold mb-3">Phase 2: Grooming</h4>
+                  <p className="text-sm mb-2">Tactics include:</p>
+                  <ul className="text-sm list-disc list-inside space-y-1 ml-2">
+                    <li>Pretending to be peers or romantic interests</li>
+                    <li>Providing emotional support and validation</li>
+                    <li>Using affectionate nicknames (&quot;princess,&quot; &quot;darling&quot;)</li>
+                    <li>Playing games together to build trust</li>
+                    <li>Isolating victims from real support systems</li>
+                  </ul>
+                  <p className="text-sm mt-2 bg-gray-100 p-2 rounded italic">
+                    Quote from their manual: &quot;You have to make your victim think that you are
+                    her god and that you own her and forever will.&quot;
+                  </p>
+                </div>
+
+                <div className="bg-white border-l-4 border-red-500 p-4">
+                  <h4 className="font-bold mb-3">Phase 3: Extortion</h4>
+                  <p className="text-sm mb-2">Requirements for extortion:</p>
+                  <ul className="text-sm list-disc list-inside space-y-1 ml-2">
+                    <li>Personal information (addresses, names, phone numbers)</li>
+                    <li>Explicit images/videos</li>
+                  </ul>
+                  <p className="text-sm mt-2 mb-2">Threats made:</p>
+                  <ul className="text-sm list-disc list-inside space-y-1 ml-2">
+                    <li>Distribution to family, friends, school</li>
+                    <li>Swatting (sending armed responders to homes)</li>
+                    <li>Doxing (releasing personal information)</li>
+                    <li>Physical threats (&quot;bricking&quot; – attacking cars/homes)</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white border-l-4 border-gray-800 p-4">
+                  <h4 className="font-bold mb-3">Phase 4: Extreme Violence</h4>
+                  <p className="text-sm mb-2 text-red-700 font-semibold">
+                    WARNING: Disturbing content
+                  </p>
+                  <p className="text-sm mb-2">Victims are coerced into:</p>
+                  <ul className="text-sm list-disc list-inside space-y-1 ml-2">
+                    <li>Self-harm and deep cutting (&quot;cut signs&quot;)</li>
+                    <li>Animal torture and killing</li>
+                    <li>Writing group names/symbols in their own blood</li>
+                    <li>Live-streamed suicide attempts</li>
+                    <li>Violence against family members</li>
+                    <li>In extreme cases: serious assaults or homicide</li>
+                  </ul>
+                </div>
+              </div>
+            )
+          },
+			cases: {
+			  title: 'Case Studies',
+			  icon: FileText,
+			  content: (
+				isPrinting ? (
+				  // PRINT VERSION: fully expanded, no <details>
+				  <div className="space-y-4">
+					<h3 className="text-xl font-bold">Documented Cases</h3>
+
+					<div className="bg-red-50 border border-red-200 p-4 rounded">
+					  <div className="flex items-start mb-2">
+						<AlertTriangle className="text-red-600 mr-2 flex-shrink-0" size={20} />
+						<p className="text-sm text-red-800 font-semibold">
+						  Content has been summarized to protect victim privacy while conveying severity.
+						</p>
+					  </div>
+					</div>
+
+					<div className="space-y-4 text-sm">
+					  <div className="bg-white border border-gray-200 p-4 rounded break-inside-avoid">
+						<h4 className="font-semibold mb-1">Case 1: “Elliott” – 14-year-old male</h4>
+						<p><strong>Context:</strong> Joined an online music community during a period of major family transition and a new school.</p>
+						<p><strong>Tactics Used:</strong> Offenders posed as supportive peers, gradually directing him toward increasingly graphic and harmful content.</p>
+						<p><strong>Outcome:</strong> Coerced into severe self-harm and generating large volumes of imagery that were treated and traded as illegal material.</p>
+					  </div>
+
+					  <div className="bg-white border border-gray-200 p-4 rounded break-inside-avoid">
+						<h4 className="font-semibold mb-1">Case 2: “Eve” – teenage female</h4>
+						<p><strong>Context:</strong> Contacted through a Discord server by an offender posing as a friend and romantic interest.</p>
+						<p><strong>Tactics Used:</strong> Grooming through affection and emotional support, followed by extortion using obtained material.</p>
+						<p><strong>Outcome:</strong> Coerced into self-harm and harm to a pet on video, resulting in long-term trauma and ongoing therapeutic needs.</p>
+					  </div>
+
+					  <div className="bg-white border border-gray-200 p-4 rounded break-inside-avoid">
+						<h4 className="font-semibold mb-1">Case 3: 25-year-old male (suicide)</h4>
+						<p><strong>Context:</strong> Adult victim experiencing severe depression, targeted online by an offender linked to the group.</p>
+						<p><strong>Tactics Used:</strong> Escalating dares and pressure to perform self-harm acts on camera.</p>
+						<p><strong>Outcome:</strong> Died by suicide on live video while others watched and encouraged, demonstrating that adults as well as minors can be exploited.</p>
+					  </div>
+
+					  <div className="bg-white border border-gray-200 p-4 rounded break-inside-avoid">
+						<h4 className="font-semibold mb-1">Case 4: Pregnant teenager (double fatality)</h4>
+						<p><strong>Context:</strong> Youth targeted through gaming, threatened with exposure and retaliation when she considered reporting the group.</p>
+						<p><strong>Tactics Used:</strong> Use of physical “bricking” attack against a vehicle as intimidation and punishment.</p>
+						<p><strong>Outcome:</strong> Fatal medical emergency following the attack, resulting in the loss of both the teen and her unborn child.</p>
+					  </div>
+
+					  <div className="bg-white border border-gray-200 p-4 rounded break-inside-avoid">
+						<h4 className="font-semibold mb-1">Case 5: “Nino” – 17-year-old perpetrator</h4>
+						<p><strong>Context:</strong> Adolescent seeking status and acceptance within the group.</p>
+						<p><strong>Action:</strong> Committed serious violent offenses against elderly victims while recording and/or streaming the attacks as proof of loyalty.</p>
+						<p><strong>Sentence:</strong> Received a custodial sentence widely viewed as low given the severity of the conduct.</p>
+					  </div>
+
+					  <div className="bg-white border border-gray-200 p-4 rounded break-inside-avoid">
+						<h4 className="font-semibold mb-1">Case 6: 13-year-old girl in Washington (recent)</h4>
+						<p><strong>Context:</strong> Young teenager coerced through online communication and isolated from healthy supports.</p>
+						<p><strong>Tactics Used:</strong> Pressure to appear on live video, combined with coercive and degrading instructions.</p>
+						<p><strong>Outcome:</strong> Death by suicide linked to ongoing coercion and online abuse, with one offender connected to numerous additional victims.</p>
+					  </div>
+
+					  <div className="bg-white border border-gray-200 p-4 rounded break-inside-avoid">
+						<h4 className="font-semibold mb-1">Additional Documented Activity</h4>
+						<ul className="list-disc list-inside space-y-1">
+						  <li>Abductions and robberies of minors arranged through online contact.</li>
+						  <li>Victims forced to ingest or interact with dangerous objects on camera.</li>
+						  <li>Attacks on vulnerable individuals in public or semi-public spaces for recording and sharing.</li>
+						  <li>Children advertised or discussed in transactional terms using digital currencies.</li>
+						  <li>Offenders bragging about large numbers of past victims as a measure of status.</li>
+						</ul>
+					  </div>
+					</div>
+
+					<div className="bg-gray-100 p-4 rounded mt-4">
+					  <h4 className="font-semibold mb-2">Statistical Overview</h4>
+					  <ul className="text-sm space-y-1">
+						<li>• Hundreds of active investigations and related cases reported in open-source discussions.</li>
+						<li>• Significant numbers of identified online accounts linked to coordinated abuse patterns.</li>
+						<li>• A notable share of identified individuals later charged or convicted for crimes against children.</li>
+						<li>• Sentences frequently lag behind the scale and long-term impact of the harm described.</li>
+					  </ul>
+					</div>
+				  </div>
+				) : (
+				  // SCREEN VERSION: interactive <details>
+				  <div className="space-y-4">
+					<h3 className="text-xl font-bold">Documented Cases</h3>
+
+					<div className="bg-red-50 border border-red-200 p-4 rounded">
+					  <div className="flex items-start mb-2">
+						<AlertTriangle className="text-red-600 mr-2 flex-shrink-0" size={20} />
+						<p className="text-sm text-red-800 font-semibold">
+						  Content has been sanitized to protect victim privacy while conveying severity.
+						</p>
+					  </div>
+					</div>
+
+					<div className="space-y-3">
+					  <details className="bg-white border border-gray-200 p-4 rounded">
+						<summary className="font-semibold cursor-pointer">
+						  Case 1: “Elliott” – 14-year-old male
+						</summary>
+						<div className="mt-3 text-sm space-y-2">
+						  <p><strong>Context:</strong> Joined an online music community during major family and school changes.</p>
+						  <p><strong>Tactics Used:</strong> Offenders posed as supportive peers and directed him toward harmful content.</p>
+						  <p><strong>Outcome:</strong> Coerced into severe self-harm and producing large amounts of exploitative imagery.</p>
+						</div>
+					  </details>
+
+					  <details className="bg-white border border-gray-200 p-4 rounded">
+						<summary className="font-semibold cursor-pointer">
+						  Case 2: “Eve” – teenage female
+						</summary>
+						<div className="mt-3 text-sm space-y-2">
+						  <p><strong>Context:</strong> Contacted via Discord by an offender posing as a friend.</p>
+						  <p><strong>Tactics Used:</strong> Grooming with affection and support followed by threats and extortion.</p>
+						  <p><strong>Outcome:</strong> Coerced into self-harm and harm to a pet on video, with lasting trauma.</p>
+						</div>
+					  </details>
+
+					  <details className="bg-white border border-gray-200 p-4 rounded">
+						<summary className="font-semibold cursor-pointer">
+						  Case 3: 25-year-old male (suicide)
+						</summary>
+						<div className="mt-3 text-sm space-y-2">
+						  <p><strong>Context:</strong> Adult victim experiencing severe depression.</p>
+						  <p><strong>Tactics Used:</strong> Escalating dares to perform self-harm acts on camera.</p>
+						  <p><strong>Outcome:</strong> Died by suicide on live video while others watched and encouraged.</p>
+						</div>
+					  </details>
+
+					  <details className="bg-white border border-gray-200 p-4 rounded">
+						<summary className="font-semibold cursor-pointer">
+						  Case 4: Pregnant teenager (double fatality)
+						</summary>
+						<div className="mt-3 text-sm space-y-2">
+						  <p><strong>Context:</strong> Targeted through gaming, threatened when she considered reporting.</p>
+						  <p><strong>Tactics Used:</strong> Physical intimidation including an attack on a vehicle.</p>
+						  <p><strong>Outcome:</strong> Fatal medical emergency resulting in the loss of both teen and unborn child.</p>
+						</div>
+					  </details>
+
+					  <details className="bg-white border border-gray-200 p-4 rounded">
+						<summary className="font-semibold cursor-pointer">
+						  Case 5: “Nino” – 17-year-old perpetrator
+						</summary>
+						<div className="mt-3 text-sm space-y-2">
+						  <p><strong>Context:</strong> Seeking status and acceptance within the group.</p>
+						  <p><strong>Action:</strong> Committed serious violent offenses against elderly victims while recording/streaming.</p>
+						  <p><strong>Sentence:</strong> Received a relatively short custodial sentence given the severity.</p>
+						</div>
+					  </details>
+
+					  <details className="bg-white border border-gray-200 p-4 rounded">
+						<summary className="font-semibold cursor-pointer">
+						  Case 6: 13-year-old girl in Washington (recent)
+						</summary>
+						<div className="mt-3 text-sm space-y-2">
+						  <p><strong>Context:</strong> Coerced and isolated through online communication.</p>
+						  <p><strong>Tactics Used:</strong> Pressure to appear on live video with harmful and degrading instructions.</p>
+						  <p><strong>Outcome:</strong> Death by suicide linked to coercion and repeated abuse.</p>
+						</div>
+					  </details>
+
+					  <details className="bg-white border border-gray-200 p-4 rounded">
+						<summary className="font-semibold cursor-pointer">
+						  Additional Documented Activity
+						</summary>
+						<div className="mt-3 text-sm space-y-2">
+						  <ul className="list-disc list-inside space-y-1">
+							<li>Abductions and robberies of minors coordinated online.</li>
+							<li>Victims coerced into dangerous or degrading acts on camera.</li>
+							<li>Attacks on vulnerable individuals recorded and shared.</li>
+							<li>Children discussed in transactional terms using digital currencies.</li>
+							<li>Offenders boasting about large numbers of past victims.</li>
+						  </ul>
+						</div>
+					  </details>
+					</div>
+
+					<div className="bg-gray-100 p-4 rounded mt-4">
+					  <h4 className="font-semibold mb-2">Statistical Overview</h4>
+					  <ul className="text-sm space-y-1">
+						<li>• Hundreds of active investigations (reported).</li>
+						<li>• Large number of identified online accounts linked to abuse.</li>
+						<li>• Notable portion of identified individuals later convicted of crimes against children.</li>
+						<li>• Sentences often fail to fully reflect severity of harm.</li>
+					  </ul>
+					</div>
+				  </div>
+				)
+			  )
+			},
+
+          platforms: {
+            title: 'Platform Intelligence',
+            icon: Shield,
+            content: (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold">High-Risk Platforms</h3>
+
+                <div className="bg-red-50 border-l-4 border-red-600 p-4">
+                  <h4 className="font-bold text-red-900 mb-3">CRITICAL: Roblox</h4>
+                  <div className="space-y-2 text-sm">
+                    <p>
+                      <strong>User Base:</strong> Tens of millions of daily active users; one of the
+                      largest children&apos;s games globally.
+                    </p>
+                    <p>
+                      <strong>Age Range:</strong> Primarily 9–15 years old.
+                    </p>
+
+                    <div className="bg-white p-3 rounded mt-2">
+                      <p className="font-semibold mb-2">Specific Threats on Roblox:</p>
+                      <ul className="list-disc list-inside space-y-1 ml-2">
+                        <li>
+                          In-game chat allows direct contact with predatory usernames (often
+                          misspelled to bypass filters).
+                        </li>
+                        <li>User-created clothing with symbols and explicit references.</li>
+                        <li>Experiences hosting violent or disturbing scenarios.</li>
+                        <li>Platform profits from user-created content regardless of intent.</li>
+                        <li>
+                          Messages inviting children off-platform with promises of illegal material.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-orange-50 border-l-4 border-orange-600 p-4">
+                  <h4 className="font-bold text-orange-900 mb-3">HIGH RISK: Minecraft</h4>
+                  <p className="text-sm">
+                    Early platform where the 764 founder began operations. Unrestricted chat with
+                    strangers on many servers and a primarily young user base.
+                  </p>
+                </div>
+
+                <div className="bg-orange-50 border-l-4 border-orange-600 p-4">
+                  <h4 className="font-bold text-orange-900 mb-3">HIGH RISK: Discord</h4>
+                  <div className="text-sm space-y-2">
+                    <p>Primary communication platform for extortion and group coordination.</p>
+                    <ul className="list-disc list-inside ml-2">
+                      <li>Free accounts; minimal verification by default.</li>
+                      <li>Voice, video, and text chat capabilities.</li>
+                      <li>File sharing enabled.</li>
+                      <li>Private servers difficult for outsiders to monitor.</li>
+                      <li>
+                        Documented cases of trading access to victims for digital perks or currency.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-yellow-50 border-l-4 border-yellow-600 p-4">
+                  <h4 className="font-bold text-yellow-900 mb-3">MODERATE RISK: Social Media</h4>
+                  <div className="text-sm">
+                    <p className="mb-2">
+                      <strong>Instagram, TikTok, Snapchat, X (Twitter):</strong>
+                    </p>
+                    <ul className="list-disc list-inside ml-2 space-y-1">
+                      <li>Used for initial contact and luring.</li>
+                      <li>Fake mental health support groups advertised.</li>
+                      <li>Direct messaging features exploited for grooming.</li>
+                      <li>Limited age verification and weak enforcement.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-purple-50 border-l-4 border-purple-600 p-4">
+                  <h4 className="font-bold text-purple-900 mb-3">
+                    EMERGING THREAT: Paid Content Platforms
+                  </h4>
+                  <div className="text-sm space-y-2">
+                    <p>
+                      <strong>Description:</strong> Some subscription platforms allow teens to post
+                      content that adults pay to view.
+                    </p>
+                    <p>
+                      <strong>Issue:</strong> These environments can normalize transactional,
+                      sexualized interactions between minors and adults and serve as transitional
+                      spaces to more explicit services.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 p-4 rounded">
+                  <h4 className="font-semibold mb-2">Additional High-Risk Platforms:</h4>
+                  <ul className="text-sm list-disc list-inside space-y-1">
+                    <li>
+                      <strong>Location-based hookup apps:</strong> Show nearby users, often with weak
+                      controls.
+                    </li>
+                    <li>
+                      <strong>Mental Health Forums:</strong> Reddit and niche forums where youth seek
+                      support.
+                    </li>
+                    <li>
+                      <strong>Encrypted Messaging Apps:</strong> Telegram and similar platforms with
+                      large group capabilities.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            )
+          },
+          prevention: {
+            title: 'Prevention & Response',
+            icon: Shield,
+            content: (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold">Prevention Strategies</h3>
+
+                <div className="bg-green-50 border-l-4 border-green-600 p-4">
+                  <h4 className="font-bold text-green-900 mb-3">For Parents: Immediate Actions</h4>
+                  <ol className="text-sm list-decimal list-inside space-y-2 ml-2">
+                    <li>
+                      <strong>Review access to high-risk platforms</strong> (Roblox, Minecraft,
+                      unsupervised Discord, niche apps).
+                    </li>
+                    <li>
+                      <strong>Consider monitoring software:</strong>
+                      <ul className="list-disc list-inside ml-6 mt-1">
+                        <li>
+                          Tools that monitor for bullying, sexual content, and suicidal ideation.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>Implement device rules:</strong>
+                      <ul className="list-disc list-inside ml-6 mt-1">
+                        <li>No phones/devices in bedrooms overnight.</li>
+                        <li>Common-area usage only where possible.</li>
+                        <li>Regular device checks with prior agreement.</li>
+                        <li>Parents/guardians know all passwords.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>Age-appropriate education:</strong> Explain grooming, extortion, and
+                      that &quot;stranger danger&quot; applies online.
+                    </li>
+                    <li>
+                      <strong>Create open communication:</strong> Make it safe for kids to disclose
+                      uncomfortable interactions without fear of punishment.
+                    </li>
+                  </ol>
+                </div>
+
+                <div className="bg-blue-50 border-l-4 border-blue-600 p-4">
+                  <h4 className="font-bold text-blue-900 mb-3">Warning Signs for Parents</h4>
+                  <div className="text-sm space-y-2">
+                    <p className="font-semibold">Behavioral indicators:</p>
+                    <ul className="list-disc list-inside ml-2 space-y-1">
+                      <li>Secretive or evasive about online activity.</li>
+                      <li>Quickly closing screens when approached.</li>
+                      <li>Excessive late-night online time.</li>
+                      <li>Withdrawal from family and friends.</li>
+                      <li>Mood changes, depression, anxiety.</li>
+                      <li>New &quot;online friends&quot; they fiercely defend.</li>
+                      <li>Receiving unexplained gifts or packages.</li>
+                      <li>Signs of self-harm or injuries.</li>
+                    </ul>
+
+                    <p className="font-semibold mt-3">Visual indicators:</p>
+                    <ul className="list-disc list-inside ml-2 space-y-1">
+                      <li>Always wearing long sleeves/pants to conceal injuries.</li>
+                      <li>
+                        Nihilistic, violent, or satanic symbols in art, room decor, or social media.
+                      </li>
+                      <li>References to &quot;764&quot; or related group names/symbols.</li>
+                      <li>Consumption of extremely dark or violent content.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-orange-50 border-l-4 border-orange-600 p-4">
+                  <h4 className="font-bold text-orange-900 mb-3">For Educators</h4>
+                  <ul className="text-sm list-disc list-inside space-y-2 ml-2">
+                    <li>
+                      Integrate online safety and digital citizenship into curriculum (starting in
+                      upper elementary).
+                    </li>
+                    <li>Train staff to recognize signs of grooming and self-harm.</li>
+                    <li>Monitor school devices and networks for concerning activity.</li>
+                    <li>Establish clear reporting protocols for suspected grooming.</li>
+                    <li>Partner with law enforcement for awareness sessions.</li>
+                    <li>Note 764 symbols or references in student work or clothing.</li>
+                    <li>Watch for sudden behavioral changes, social isolation, or withdrawal.</li>
+                  </ul>
+                </div>
+
+                <div className="bg-red-50 border-l-4 border-red-600 p-4">
+                  <h4 className="font-bold text-red-900 mb-3">If You Suspect Victimization</h4>
+                  <ol className="text-sm list-decimal list-inside space-y-2 ml-2">
+                    <li>
+                      <strong>Avoid aggressive confrontation.</strong> Focus on safety and support,
+                      not blame.
+                    </li>
+                    <li>
+                      <strong>Preserve evidence:</strong> Screenshots, messages, usernames,
+                      timestamps.
+                    </li>
+                    <li>
+                      <strong>Do not delete content</strong> from devices or accounts.
+                    </li>
+                    <li>
+                      <strong>Contact law enforcement immediately:</strong>
+                      <ul className="list-disc list-inside ml-6 mt-1">
+                        <li>Local police department.</li>
+                        <li>FBI: tips.fbi.gov or 1-800-CALL-FBI.</li>
+                        <li>National Center for Missing &amp; Exploited Children: CyberTipline.org.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>Seek professional help:</strong> Trauma-informed therapist as soon as
+                      possible.
+                    </li>
+                    <li>
+                      <strong>Secure all devices:</strong> Change passwords; consider monitoring
+                      tools.
+                    </li>
+                    <li>
+                      <strong>Arrange medical evaluation</strong> if self-harm or physical assault
+                      is suspected.
+                    </li>
+                  </ol>
+                </div>
+
+                <div className="bg-purple-50 border-l-4 border-purple-600 p-4">
+                  <h4 className="font-bold text-purple-900 mb-3">For Law Enforcement</h4>
+                  <div className="text-sm space-y-2">
+                    <p className="font-semibold">Key intelligence:</p>
+                    <ul className="list-disc list-inside ml-2 space-y-1">
+                      <li>764 has been described in briefings as a domestic terrorist group.</li>
+                      <li>Estimated tens of thousands of members or associates worldwide.</li>
+                      <li>Numerous offshoots and rebranded groups.</li>
+                      <li>Members share extensive exploitation manuals and playbooks.</li>
+                      <li>Proof-of-crime requirements for entry into some cells.</li>
+                      <li>
+                        Primary operational hubs include Discord, Telegram, and gaming platforms.
+                      </li>
+                    </ul>
+
+                    <p className="font-semibold mt-3">Investigative considerations:</p>
+                    <ul className="list-disc list-inside ml-2 space-y-1">
+                      <li>
+                        Prioritize preservation of digital evidence; victims may delete content under
+                        coercion.
+                      </li>
+                      <li>Leverage ICAC task forces and federal partners.</li>
+                      <li>
+                        Coordinate with organizations like NCMEC and specialized non-profits where
+                        appropriate.
+                      </li>
+                      <li>
+                        Watch for overlap between local cases and online handles/usernames tied to
+                        764-related groups.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-gray-100 p-4 rounded">
+                  <h4 className="font-semibold mb-2">Terminology to Know</h4>
+                  <div className="grid md:grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <p>
+                        <strong>Cut signs/slots:</strong> Deep cuts carved into skin with usernames
+                        or symbols.
+                      </p>
+                    </div>
+                    <div>
+                      <p>
+                        <strong>Blood signs:</strong> Writing on surfaces with a victim&apos;s
+                        blood.
+                      </p>
+                    </div>
+                    <div>
+                      <p>
+                        <strong>Lure book:</strong> Collection of extortion material used to control
+                        victims.
+                      </p>
+                    </div>
+                    <div>
+                      <p>
+                        <strong>Bricking:</strong> Physical attack on a victim&apos;s home or
+                        vehicle, often with thrown objects.
+                      </p>
+                    </div>
+                    <div>
+                      <p>
+                        <strong>Swatting:</strong> False emergency report to send armed responders to
+                        a victim&apos;s location.
+                      </p>
+                    </div>
+                    <div>
+                      <p>
+                        <strong>The Comm:</strong> Broader online community from which 764 emerged.
+                      </p>
+                    </div>
+                    <div>
+                      <p>
+                        <strong>Tradecraft:</strong> Evasion tactics, encrypted communications, and
+                        operational security.
+                      </p>
+                    </div>
+                    <div>
+                      <p>
+                        <strong>Vic:</strong> Slang used by offenders for &quot;victim.&quot;
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          }
+        };
+
+        const SectionButton = ({ sectionKey, icon: Icon, title }) => (
+          <button
+            onClick={() => setActiveSection(sectionKey)}
+            className={`w-full p-3 rounded-lg border-2 transition-all flex items-center justify-between text-left ${
+              activeSection === sectionKey
+                ? 'border-blue-600 bg-blue-50'
+                : 'border-gray-200 hover:border-blue-400 bg-white'
+            }`}
+          >
+            <div className="flex items-center">
+              <Icon
+                className={activeSection === sectionKey ? 'text-blue-600' : 'text-gray-600'}
+                size={18}
+              />
+              <span
+                className={`ml-3 font-semibold ${
+                  activeSection === sectionKey ? 'text-blue-600' : 'text-gray-700'
+                }`}
+              >
+                {title}
+              </span>
+            </div>
+            <ChevronRight
+              className={activeSection === sectionKey ? 'text-blue-600' : 'text-gray-400'}
+              size={16}
+            />
+          </button>
+        );
+
+        const ActiveSection = sections[activeSection];
+
+        return (
+          <div className="max-w-6xl mx-auto p-6 bg-gray-50 print-wrapper">
+			<div className="bg-gradient-to-r from-red-900 to-red-700 text-white p-6 rounded-t-lg flex items-center justify-between print-header">
+			  <div>
+				<h1 className="text-3xl font-bold">THREAT BRIEFING: 764 Group</h1>
+				<p className="text-red-100 text-sm">
+				  Critical Intelligence for Law Enforcement, Educators, Parents & Child Safety Professionals
+				</p>
+			  </div>
+
+			  {/* Print Button */}
+			  <button
+				  onClick={handlePrint}
+				  className="px-4 py-2 bg-white text-red-800 font-semibold rounded shadow hover:bg-red-50 transition print:hidden"
+				>
+				  Print / PDF
+				</button>
+			</div>
+
+
+            <div className="bg-white shadow-lg rounded-b-lg border border-t-0 border-gray-200 break-inside-avoid">
+              <div className="flex flex-col md:flex-row">
+                <aside className="md:w-1/3 lg:w-1/4 border-b md:border-b-0 md:border-r border-gray-200 p-4 bg-gray-50 space-y-3">
+                  <SectionButton
+                    sectionKey="home"
+                    icon={sections.home.icon}
+                    title={sections.home.title}
+                  />
+                  <SectionButton
+                    sectionKey="overview"
+                    icon={sections.overview.icon}
+                    title={sections.overview.title}
+                  />
+                  <SectionButton
+                    sectionKey="tactics"
+                    icon={sections.tactics.icon}
+                    title={sections.tactics.title}
+                  />
+                  <SectionButton
+                    sectionKey="cases"
+                    icon={sections.cases.icon}
+                    title={sections.cases.title}
+                  />
+                  <SectionButton
+                    sectionKey="platforms"
+                    icon={sections.platforms.icon}
+                    title={sections.platforms.title}
+                  />
+                  <SectionButton
+                    sectionKey="prevention"
+                    icon={sections.prevention.icon}
+                    title={sections.prevention.title}
+                  />
+                </aside>
+
+                <main className="flex-1 p-6">
+  {isPrinting ? (
+    // PRINT MODE: render ALL sections in order
+    <div className="space-y-10">
+      {Object.entries(sections).map(([key, section]) => (
+        <section key={key} className="break-inside-avoid">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+            <section.icon className="text-blue-600" size={20} />
+            <span>{section.title}</span>
+          </h2>
+          <div className="space-y-4">{section.content}</div>
+        </section>
+      ))}
+    </div>
+  ) : (
+    // NORMAL MODE: render only the active section
+    <>
+      <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+        <ActiveSection.icon className="text-blue-600" size={20} />
+        <span>{ActiveSection.title}</span>
+      </h2>
+      <div className="space-y-4">{ActiveSection.content}</div>
+    </>
+  )}
+</main>
+
+
+
+              </div>
+            </div>
+          </div>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<Briefing764 />);
+    </script>
+  </body>
+</html>
